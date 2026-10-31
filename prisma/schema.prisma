@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./echo.db"
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model Conversation {
+  id         String    @id @default(cuid())
+  sessionId  String    @unique
+  status     String    @default("active") // active | resolved | handed-off
+  visitorName String?
+  visitorEmail String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  messages   Message[]
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String       // user | assistant | system
+  content        String
+  sourceArticleId String?
+  createdAt      DateTime     @default(now())
+}
+
+model Article {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  category  String   @default("general")
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  type      String   // question | deflection | handoff | resolved
+  metadata  String?  // JSON string
+  createdAt DateTime @default(now())
+}

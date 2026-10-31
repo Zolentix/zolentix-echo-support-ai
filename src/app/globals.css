@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2A2A3C transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #2A2A3C;
+    border-radius: 3px;
+  }
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0A0A0F;
+  color: #EDEDF2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .echo-gradient {
+    background: linear-gradient(135deg, #6D4AFF, #8B5CF6);
+  }
+  .echo-gradient-text {
+    background: linear-gradient(135deg, #6D4AFF, #8B5CF6, #22D3EE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .echo-card {
+    @apply bg-echo-surface border border-echo-border rounded-xl;
+  }
+  .echo-input {
+    @apply w-full bg-echo-surface border border-echo-border rounded-lg px-4 py-3 text-echo-text placeholder-echo-text-muted focus:outline-none focus:border-echo-primary focus:ring-1 focus:ring-echo-primary/30 transition-colors;
+  }
+  .echo-btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium text-white echo-gradient hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .echo-btn-secondary {
+    @apply px-4 py-2 rounded-lg font-medium text-echo-text-secondary bg-echo-surface border border-echo-border hover:bg-echo-surface-hover transition-colors;
+  }
+  .echo-btn-ghost {
+    @apply px-4 py-2 rounded-lg font-medium text-echo-text-secondary hover:text-echo-text hover:bg-echo-surface-hover transition-colors;
+  }
+  .echo-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .echo-badge-active {
+    @apply echo-badge bg-echo-success/10 text-echo-success;
+  }
+  .echo-badge-resolved {
+    @apply echo-badge bg-echo-primary/10 text-echo-primary-bright;
+  }
+  .echo-badge-handoff {
+    @apply echo-badge bg-echo-warning/10 text-echo-warning;
+  }
+
+  .typing-dot {
+    animation: typingBounce 1.4s infinite ease-in-out both;
+  }
+  .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+  .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+}
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(109,74,255,0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
